@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rent_Car - Car Rental System</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"  
+  />
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- LOGIN -->
+    <section id="login-section" class="card fade-in">
+      <div class="logo">Rent_<span>Car</span></div>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Login to manage your car rentals</p>
+
+      <form id="login-form">
+        <div class="input-group">
+          <label for="username"><i class="fa-solid fa-user"></i> Username</label>
+          <input type="text" id="username" placeholder="Enter username" required />
+        </div>
+
+        <div class="input-group">
+          <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+          <input type="password" id="password" placeholder="Enter password" required />
+        </div>
+
+        <button type="submit" class="btn primary-btn">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </button>
+
+        <p id="login-message" class="error"></p>
+      </form>
+    </section>
+
+    <!-- HOME -->
+    <section id="home-section" class="home hidden">
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <div class="logo">Rent_<span>Car</span></div>
+
+        <ul class="nav-links">
+          <li data-target="dashboard" class="nav-item active">
+            <i class="fa-solid fa-house"></i> Home
+          </li>
+          <li data-target="about">
+            <i class="fa-solid fa-circle-info"></i> About
+          </li>
+          <li data-target="booking">
+            <i class="fa-solid fa-calendar-check"></i> Booking
+          </li>
+          <li data-target="duration">
+            <i class="fa-solid fa-clock"></i> Duration
+          </li>
+          <li data-target="history">
+            <i class="fa-solid fa-clock-rotate-left"></i> History
+          </li>
+          <li data-target="contact">
+            <i class="fa-solid fa-phone"></i> Contact
+          </li>
+          <li data-target="admin">
+            <i class="fa-solid fa-gear"></i> Admin
+          </li>
+        </ul>
+
+        <div class="profile">
+          <i class="fa-solid fa-user-circle"></i>
+          <span class="profile-name">admin</span>
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <div class="content">
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="section fade-in active-section">
+          <h2>Dashboard</h2>
+          <p class="section-subtitle">
+            Quick overview of cars, availability, and bookings.
+          </p>
+
+          <div class="cards-grid">
+            <div class="info-card">
+              <h3>Total Cars</h3>
+              <p id="total-cars">0</p>
+            </div>
+            <div class="info-card">
+              <h3>Available</h3>
+              <p id="available-cars">0</p>
+            </div>
+            <div class="info-card">
+              <h3>Booked</h3>
+              <p id="booked-cars">0</p>
+            </div>
+            <div class="info-card">
+              <h3>Total Bookings</h3>
+              <p id="total-bookings">0</p>
+            </div>
+          </div>
+
+          <h3 class="section-heading">Car List</h3>
+
+          <!-- FILTERS + SEARCH -->
+          <div class="filters">
+            <select id="filter-type">
+              <option value="all">All Types</option>
+              <option value="2-wheeler">2 Wheeler</option>
+              <option value="4-wheeler">4 Wheeler</option>
+            </select>
+
+            <select id="filter-availability">
+              <option value="all">All Status</option>
+              <option value="available">Available</option>
+              <option value="unavailable">Not Available</option>
+            </select>
+
+            <select id="filter-price">
+              <option value="all">All Prices</option>
+              <option value="0-200">₹0 - ₹200</option>
+              <option value="200-500">₹200 - ₹500</option>
+              <option value="500-99999">₹500+</option>
+            </select>
+
+            <div class="search-wrapper">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search car name, category..."
+              />
+            </div>
+          </div>
+
+          <div id="car-list" class="car-list"></div>
+        </div>
+
+        <!-- ABOUT -->
+        <div id="about" class="section fade-in">
+          <h2>About</h2>
+          <p class="section-subtitle">
+            Learn more about Rent_Car.
+          </p>
+          <p>
+            Rent_Car is a modern car rental dashboard built using HTML, CSS, JavaScript,
+            and Node.js. Manage 2-wheelers, 4-wheelers and sports cars with live
+            availability, smart filters and booking history.
+          </p>
+        </div>
+
+        <!-- BOOKING -->
+        <div id="booking" class="section fade-in">
+          <h2>Book a Car</h2>
+          <p class="section-subtitle">
+            Choose vehicle type, car, and duration to create a booking.
+          </p>
+
+          <form id="booking-form" class="booking-form">
+            <div class="input-group">
+              <label for="customer-name">
+                <i class="fa-solid fa-user"></i> Customer Name
+              </label>
+              <input
+                type="text"
+                id="customer-name"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="vehicle-type">
+                <i class="fa-solid fa-motorcycle"></i> Vehicle Type
+              </label>
+              <select id="vehicle-type" required>
+                <option value="">Select type</option>
+                <option value="2-wheeler">2 Wheeler</option>
+                <option value="4-wheeler">4 Wheeler</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="car-select">
+                <i class="fa-solid fa-car-side"></i> Car</label>
+              <select id="car-select" required>
+                <option value="">Select car</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="duration-hours">
+                <i class="fa-solid fa-clock"></i> Duration (in hours)
+              </label>
+              <input
+                type="number"
+                id="duration-hours"
+                min="1"
+                placeholder="e.g., 3"
+                required
+              />
+            </div>
+            
+              <form id="booking-form" class="booking-form">
+              <div class="input-group">
+  <label for="fullname"><i class="fa-solid fa-user"></i> Full Name</label>
+  <input type="text" id="fullname" placeholder="Enter full name" required />
+</div>
+
+<div class="input-group">
+  <label for="license"><i class="fa-solid fa-id-card"></i> Driving License Number</label>
+  <input type="text" id="license" placeholder="Enter DL number/Adhar number" required />
+</div>
+
+<div class="input-group">
+  <label for="age"><i class="fa-solid fa-user-clock"></i> Age</label>
+  <input type="number" id="age" placeholder="Enter age" required />
+</div>
+
+<div class="input-group">
+  <label for="address"><i class="fa-solid fa-location-dot"></i> Address</label>
+  <input type="text" id="address" placeholder="Enter address" required />
+</div>
+
+<div class="input-group">
+  <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+  <input type="text" id="phone" placeholder="Enter phone number" required />
+</div>
+
+<div class="input-group">
+  <label for="pickup"><i class="fa-solid fa-arrow-up"></i> Pickup Location</label>
+  <input type="text" id="pickup" placeholder="Enter pickup location" required />
+</div>
+
+<div class="input-group">
+  <label for="drop"><i class="fa-solid fa-arrow-down"></i> Drop Location</label>
+  <input type="text" id="drop" placeholder="Enter drop location" required />
+</div>
+
+
+            <button type="submit" class="btn primary-btn">
+              <i class="fa-solid fa-calendar-check"></i> Confirm Booking
+            </button>
+
+            <p id="booking-message" class="success"></p>
+          </form>
+        </div>
+
+        <!-- DURATION INFO -->
+        <div id="duration" class="section fade-in">
+          <h2>Booking Duration Info</h2>
+          <p class="section-subtitle">
+            How duration and cost are calculated.
+          </p>
+          <ul class="info-list">
+            <li>⏱ Minimum duration is 1 hour.</li>
+            <li>💰 Total cost = hours × price per hour of selected car.</li>
+            <li>🚗 After booking, car status becomes <strong>Not Available</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- HISTORY -->
+        <div id="history" class="section fade-in">
+          <h2>Booking History</h2>
+          <p class="section-subtitle">
+            View all previous bookings.
+          </p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Customer</th>
+                <th>Car</th>
+                <th>Hours</th>
+                <th>Price / hr</th>
+                <th>Total Cost</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+
+        <!-- CONTACT -->
+        <div id="contact" class="section fade-in">
+          <h2>Contact</h2>
+          <p class="section-subtitle">
+            Get in touch with Rent_Car support.
+          </p>
+          <p>Email: support@rentcar.com</p>
+          <p>Phone: +91-9876543210</p>
+          <p>Location: Jaipur, Rajasthan, India</p>
+        </div>
+
+        <!-- ADMIN -->
+        <div id="admin" class="section fade-in">
+          <h2>Admin Panel</h2>
+          <p class="section-subtitle">
+            Add new cars and toggle availability (demo admin controls).
+          </p>
+
+          <div class="admin-layout">
+            <form id="admin-add-car-form" class="admin-form">
+              <h3>Add New Car (Demo)</h3>
+
+              <div class="input-group">
+                <label for="admin-car-name">Car Name</label>
+                <input id="admin-car-name" type="text" placeholder="e.g., Kia Seltos" required />
+              </div>
+
+              <div class="input-group">
+                <label for="admin-type">Type</label>
+                <select id="admin-type" required>
+                  <option value="4-wheeler">4 Wheeler</option>
+                  <option value="2-wheeler">2 Wheeler</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="admin-price">Price / hour (₹)</label>
+                <input id="admin-price" type="number" min="1" required />
+              </div>
+
+              <div class="input-group">
+                <label for="admin-category">Category</label>
+                <input id="admin-category" type="text" placeholder="SUV, Hatchback, Sport..." />
+              </div>
+
+              <div class="input-group">
+                <label for="admin-description">Description</label>
+                <textarea id="admin-description" rows="3" placeholder="Short description"></textarea>
+              </div>
+
+              <div class="input-group inline">
+                <label>
+                  <input id="admin-is-sport" type="checkbox" />
+                  Mark as Sport Car
+                </label>
+              </div>
+
+              <button class="btn primary-btn" type="submit">
+                <i class="fa-solid fa-plus"></i> Add Car
+              </button>
+              <p id="admin-message" class="success"></p>
+            </form>
+
+            <div class="admin-table-wrapper">
+              <h3>All Cars</h3>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Toggle</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-cars-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CAR DETAILS MODAL -->
+  <div id="car-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <button class="modal-close" data-close-modal>
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-header">
+        <h3 id="modal-car-name"></h3>
+        <span id="modal-car-category" class="badge type"></span>
+      </div>
+      <p id="modal-car-description" class="modal-description"></p>
+      <div class="modal-meta">
+        <span id="modal-car-type" class="badge type"></span>
+        <span id="modal-car-availability" class="badge"></span>
+        <span id="modal-car-rating" class="rating"></span>
+      </div>
+      <p class="modal-price">
+        <span id="modal-car-price"></span> <span>/ hour</span>
+      </p>
+      <button id="modal-book-btn" class="btn primary-btn">
+        <i class="fa-solid fa-calendar-check"></i> Book this car
+      </button>
+    </div>
+  </div>
+
+  <!-- BOOKING SUCCESS MODAL -->
+  <div id="booking-modal" class="toast hidden">
+    <div class="toast-inner">
+      <i class="fa-solid fa-circle-check"></i>
+      <div>
+        <p id="toast-title">Booking successful!</p>
+        <p id="toast-body"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
